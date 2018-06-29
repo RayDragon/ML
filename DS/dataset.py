@@ -16,7 +16,21 @@ class
 """
 import pandas as pd
 import numpy as np
-
+from matplotlib import pyplot as pt
 data = pd.read_csv('../DataSets/data.csv')
+X = data.iloc[:, :-1].values
+Y = data.iloc[:,6].values
 
+from sklearn.preprocessing import LabelEncoder
+ssk = LabelEncoder()
+Y = ssk.fit_transform(Y)
 
+from sklearn.naive_bayes import GaussianNB
+cl = GaussianNB()
+cl.fit(X,Y)
+
+ssk.inverse_transform(cl.predict([
+        [4,3,2,1,2,3],
+        [3,2,4,4,2,3],
+        [1,3,2,2,2,3],
+        [2,4,5,5,3,1]]))
